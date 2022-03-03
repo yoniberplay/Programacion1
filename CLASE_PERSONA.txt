@@ -1,0 +1,175 @@
+package Principal;
+
+//@YONIBER ENCARNACION 
+//@2021-1442
+//@PROGRAMACION I 
+
+
+public class Persona {
+	//Sus atributos son: nombre, edad, DNI, sexo (H hombre, M mujer), peso y altura. 
+	//No queremos que se accedan directamente a ellos. Piensa que modificador de acceso es el 
+	//más adecuado, también su tipo. Si quieres añadir algún atributo puedes hacerlo.
+	private String nombre;
+	private final String dni;
+	private int edad;
+	private char sexo;
+	private float peso,altura;
+	
+	public Persona() {
+		this.nombre = "YONIBER";
+		this.edad = 22;
+		this.sexo='H';
+		this.peso = 70.5f;
+		this.altura = 1.50f;
+		this.dni = generaDNI();
+	}
+	
+	public Persona(String nombre, int edad, char sexo) {
+		this.nombre = nombre;
+		this.edad = edad;
+		this.sexo = Character.toUpperCase(sexo);
+		this.peso = 74.8f;
+		this.altura = 1.64f;
+		this.dni = generaDNI();
+		
+		comprobarSexo(sexo);
+	}
+
+	public Persona(String nombre, int edad, char sexo, float peso, float altura) {
+		this.nombre = nombre;
+		this.edad = edad;
+		this.sexo = Character.toUpperCase(sexo);
+		this.peso = peso;
+		this.altura = altura;
+		this.dni = generaDNI();
+		
+		comprobarSexo(sexo);
+	}
+	//calcularIMC(): calculara si la persona esta en su peso ideal (peso en kg/(altura^2  en m)), 
+	//si esta fórmula devuelve un valor menor que 20, la función devuelve un -1, si devuelve un número entre 
+	//20 y 25 (incluidos), significa que esta por debajo de su peso ideal la función devuelve un 0  
+	//y si devuelve un valor mayor que 25 significa que tiene sobrepeso, la función devuelve un 1. 
+	//Te recomiendo que uses constantes para devolver estos valores.
+
+	public static final int pesoideal = -1;
+	public static final int bajopesoideal = 0;
+	public static final int sobrepeso = 1;
+	
+	public int calcularIMC(){
+		double IMC = (peso/(Math.pow(altura, 2)));
+		int cond = 0 ;
+		
+		if (IMC < 20) {
+			cond=pesoideal;
+		}
+		else if (IMC>= 20 && IMC <=25) {
+			cond=bajopesoideal;
+		}
+		else {
+			cond=sobrepeso;
+		}
+		
+	return cond;
+	}
+	
+	//esMayorDeEdad(): indica si es mayor de edad, devuelve un booleano.
+	boolean esMayorDeEdad(){
+		boolean cond = false;
+		if (this.edad >= 18) {
+			cond = true;
+		}
+		return cond;
+	}
+	//: comprueba que el sexo introducido es correcto. 
+	//Si no es correcto, sera H. No sera visible al exterior.
+	
+	private void comprobarSexo(char a) {
+		if (a != 'H') {
+			this.sexo = 'H';
+		}
+	}
+	//Toda la informacion del objeto
+	@Override
+	public String toString() {
+		return "\nNombre: "+nombre+"\nDNI: "+dni+"\nEdad: "+edad+"\nSexo: "+sexo+"\nPeso: "+peso+"\nAltura: "+altura;
+	}
+	
+	//generaDNI(): genera un número aleatorio de 8 cifras, genera a partir de este su número
+	//su letra correspondiente. Este método sera invocado cuando se construya el objeto. 
+	//Puedes dividir el método para que te sea más fácil. No será visible al exterior.
+	
+	 private String generaDNI() {
+	        final int divisor = 23;
+	 
+	        //Generamos un número de 8 digitos
+	        int numDNI = ((int) Math.floor(Math.random() * (100000000 - 10000000) + 10000000));
+	        int res = numDNI - (numDNI / divisor * divisor);
+	 
+	        //Calculamos la letra del DNI
+	        char letraDNI = generaLetraDNI(res);
+	 
+	        //Pasamos el DNI a String
+	        return  Integer.toString(numDNI) + letraDNI;
+	    }
+	 
+	    private char generaLetraDNI(int res) {
+	        char letras[] = {'T', 'R', 'W', 'A', 'G', 'M', 'Y',
+	            'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z',
+	            'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E','Ñ'};
+	 
+	        return letras[res];
+	    }
+
+	    
+	    //Métodos set de cada parámetro, excepto de DNI.
+		public String getNombre() {
+			return nombre;
+		}
+
+		public void setNombre(String nombre) {
+			this.nombre = nombre;
+		}
+
+		public int getEdad() {
+			return edad;
+		}
+
+		public void setEdad(int edad) {
+			this.edad = edad;
+		}
+
+		public char getSexo() {
+			return sexo;
+		}
+
+		public void setSexo(char sexo) {
+			this.sexo = sexo;
+		}
+
+		public float getPeso() {
+			return peso;
+		}
+
+		public void setPeso(float peso) {
+			this.peso = peso;
+		}
+
+		public float getAltura() {
+			return altura;
+		}
+
+		public void setAltura(float altura) {
+			this.altura = altura;
+		}
+
+		public String getDni() {
+			return dni;
+		}
+	    
+	   
+	    
+	    
+	 
+	
+
+}

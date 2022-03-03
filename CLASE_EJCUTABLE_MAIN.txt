@@ -1,0 +1,95 @@
+package Principal;
+
+//@YONIBER ENCARNACION 
+//@2021-1442
+//@PROGRAMACION I 
+
+import java.util.Scanner;
+
+public class Promacion1 {
+
+	public static void main(String[] args) {
+		
+		String nombre="";
+		int edad=0;
+		char sexo=' ';
+		float peso=0,altura=0;
+		Scanner teclado = new Scanner(System.in);
+		
+		try {
+			//Pide por teclado el nombre, la edad, sexo, peso y altura.
+		System.out.println("Introduzca sus datos.");
+		System.out.print("Nombre: ");
+		nombre = teclado.next();
+		System.out.print("Edad: ");
+		edad = teclado.nextInt();
+		System.out.print("Sexo: ");
+		sexo= teclado.next().charAt(0);
+		System.out.print("Peso: ");
+		peso = teclado.nextFloat();
+		System.out.print("Altura: ");
+		altura = teclado.nextFloat();
+		
+		//Crea 3 objetos de la clase anterior, el primer objeto obtendrá las anteriores variables 
+		//pedidas por teclado, el segundo objeto obtendrá todos los anteriores menos el peso y la 
+		//altura y el último por defecto, para este último utiliza los métodos set para darle a los atributos un valor.
+		
+		Persona persona1 = new Persona(nombre, edad, sexo, peso, altura);
+		Persona persona2 = new Persona(nombre, edad, sexo);
+		Persona persona3 = new Persona();
+		persona3.setNombre("Peter");
+		persona3.setAltura(1.8f);
+		persona3.setEdad(35);
+		persona3.setPeso(80.2f);
+		persona3.setSexo('a');
+		
+		
+		//Para cada objeto, deberá comprobar si esta en su peso ideal, tiene sobrepeso o 
+		//por debajo de su peso ideal con un mensaje.
+		//Indicar para cada objeto si es mayor de edad.
+		//Por último, mostrar la información de cada objeto.
+		
+		System.out.println(persona1.toString());;
+		MuestraMensajePeso(persona1);
+		Mayoredad(persona1);
+		
+		System.out.println(persona2.toString());;
+		MuestraMensajePeso(persona2);
+		Mayoredad(persona2);
+		
+		System.out.println(persona3.toString());;
+		MuestraMensajePeso(persona3);
+		Mayoredad(persona3);
+		
+		}catch (Exception e) {
+			System.out.println("Ha ingresado un tipo de dato incorrecto, ejecute el programa de nuevo.");
+		}
+
+		teclado.close();
+	}
+	
+	static void MuestraMensajePeso(Persona p) {
+        int IMC = p.calcularIMC();
+        switch (IMC) {
+            case Persona.pesoideal:
+                System.out.println(p.getNombre()+" Esta en su peso ideal.");
+                break;
+            case Persona.bajopesoideal:
+                System.out.println(p.getNombre()+" Esta por debajo de su peso ideal.");
+                break;
+            case Persona.sobrepeso:
+                System.out.println(p.getNombre()+" Tiene sobrepeso.");
+                break;
+        }
+    }
+	
+	static void Mayoredad(Persona p) {
+		if (p.esMayorDeEdad() == true) {
+			System.out.println(p.getNombre()+" Es mayor de edad.");
+		}else {
+			System.out.println(p.getNombre()+" Es menor de edad.");
+		}
+		
+	}
+
+}
